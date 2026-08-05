@@ -1,12 +1,19 @@
 name: AutoRestart
+prefix: AutoRestart
 main: io.github.noone_075.auto_restart.AutoRestartPlugin
 version: 1.0.1
 api-version: 1.21
+
+description: Automatically restarts the server when one of the configured files is modified.
+author: noone-075
+website: https://github.com/noone-075/auto-restart
+
 commands:
   auto-restart:
     description: Manage auto-restart file watching and restart behavior
     usage: /<command> <start|stop|pause|reload|status>
     permission: auto-restart
+
 permissions:
   auto-restart:
     description: Allows using auto-restart commands
