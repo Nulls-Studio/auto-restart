@@ -3,6 +3,7 @@ package io.github.noone_075.auto_restart;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.command.PluginCommand;
 
 import net.kyori.adventure.text.Component;
 
@@ -44,8 +45,14 @@ public class AutoRestartPlugin extends JavaPlugin {
                 this::onWatchedPathChanged,
                 () -> autoRestartEnabled,
                 () -> pausedUntil);
+        AutoRestartCommand command = new AutoRestartCommand(this);
 
-        getCommand("auto-restart").setExecutor(new AutoRestartCommand(this));
+        PluginCommand pluginCommand = getCommand("auto-restart");
+        if (pluginCommand != null) {
+            pluginCommand.setExecutor(command);
+            pluginCommand.setTabCompleter(command);
+        }
+
         reloadConfigAndWatcher();
         autoRestartEnabled = true;
         pausedUntil = 0;
