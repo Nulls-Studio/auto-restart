@@ -1,0 +1,13 @@
+name: AutoRestart
+main: io.github.noone_075.auto_restart.AutoRestartPlugin
+version: 1.0.0
+api-version: 1.21
+commands:
+  auto-restart:
+    description: Manage auto-restart file watching and restart behavior
+    usage: /<command> <start|stop|pause|reload>
+    permission: auto-restart
+permissions:
+  auto-restart:
+    description: Allows using auto-restart commands
+    default: op
