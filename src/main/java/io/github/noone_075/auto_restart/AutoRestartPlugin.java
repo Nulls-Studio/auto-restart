@@ -93,7 +93,7 @@ public class AutoRestartPlugin extends JavaPlugin {
 
     private void performRestart(Path changedPath) {
         String relativeChanged = serverRoot.relativize(changedPath).toString().replace('\\', '/');
-        String kickMessageForPerm = "Server is restarting because /plugins/auto-restart/files.txt was modified and not Server is restarting as all other players. Changed: " + relativeChanged;
+        String kickMessageForPerm = "Server is restarting because a change was applied to " + relativeChanged + ".";
         String defaultKickMessage = "Server is restarting.";
 
         Component kickMessageForPermComponent = Component.text(kickMessageForPerm);
