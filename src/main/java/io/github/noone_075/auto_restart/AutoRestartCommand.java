@@ -62,7 +62,7 @@ public class AutoRestartCommand implements CommandExecutor {
                 sender.sendMessage(plugin.getStatusMessage());
                 return true;
             default:
-                sender.sendMessage("Usage: /auto-restart <start|stop|pause|reload>");
+                sender.sendMessage("Usage: /auto-restart <start|stop|pause|reload|status>");
                 return true;
         }
     }
