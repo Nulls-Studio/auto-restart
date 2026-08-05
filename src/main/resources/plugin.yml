@@ -5,7 +5,7 @@ api-version: 1.21
 commands:
   auto-restart:
     description: Manage auto-restart file watching and restart behavior
-    usage: /<command> <start|stop|pause|reload>
+    usage: /<command> <start|stop|pause|reload|status>
     permission: auto-restart
 permissions:
   auto-restart:
