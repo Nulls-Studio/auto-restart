@@ -4,6 +4,8 @@ A lightweight Minecraft plugin that automatically restarts your server whenever 
 
 AutoRestart monitors the files and directories you specify and automatically restarts the server when changes are detected. This makes it ideal for automated deployments, configuration updates, or development environments.
 
+![Build Status](https://github.com/noone-075/auto-restart/actions/workflows/maven.yml/badge.svg)
+
 ---
 
 ## Features
