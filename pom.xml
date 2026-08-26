@@ -6,16 +6,16 @@
 
     <groupId>io.github.noone_075</groupId>
     <artifactId>auto-restart</artifactId>
-    <version>1.0.1</version>
+    <version>1.1.0</version>
     <packaging>jar</packaging>
 
     <name>AutoRestart</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>25</java.version>
-        <maven.compiler.release>25</maven.compiler.release>
-        <bukkit.version>1.21.11-R0.1-SNAPSHOT</bukkit.version>
+        <java.version>8</java.version>
+        <maven.compiler.release>8</maven.compiler.release>
+        <bukkit.version>1.12.2-R0.1-SNAPSHOT</bukkit.version>
     </properties>
 
     <repositories>
@@ -37,8 +37,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>io.papermc.paper</groupId>
-            <artifactId>paper-api</artifactId>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot-api</artifactId>
             <version>${bukkit.version}</version>
             <scope>provided</scope>
         </dependency>
@@ -49,9 +49,10 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.14.0</version>
+                <version>3.8.1</version>
                 <configuration>
-                    <release>${maven.compiler.release}</release>
+                    <source>8</source>
+                    <target>8</target>
                 </configuration>
             </plugin>
         </plugins>
