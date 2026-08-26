@@ -5,7 +5,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -34,66 +33,59 @@ public class AutoRestartCommand implements CommandExecutor, TabCompleter {
             return true;
         }
 
-        switch (args[0].toLowerCase()) {
-            case "start":
-                plugin.setAutoRestartEnabled(true);
-                plugin.setPausedUntil(0);
-                sender.sendMessage("Auto-restart watching has been started.");
+        String subcommand = args[0].toLowerCase();
+        if (subcommand.equals("start")) {
+            plugin.setAutoRestartEnabled(true);
+            plugin.setPausedUntil(0);
+            sender.sendMessage("Auto-restart watching has been started.");
+            return true;
+        } else if (subcommand.equals("stop")) {
+            plugin.setAutoRestartEnabled(false);
+            plugin.setPausedUntil(0);
+            sender.sendMessage("Auto-restart watching has been stopped.");
+            return true;
+        } else if (subcommand.equals("pause")) {
+            if (args.length < 2) {
+                sender.sendMessage("Usage: /auto-restart pause <time> (example: 10s, 2m, 3h)");
                 return true;
+            }
 
-            case "stop":
-                plugin.setAutoRestartEnabled(false);
-                plugin.setPausedUntil(0);
-                sender.sendMessage("Auto-restart watching has been stopped.");
+            long millis = parseDurationMillis(args[1]);
+            if (millis <= 0) {
+                sender.sendMessage("Invalid duration. Use values like 10s, 2m, 3h.");
                 return true;
+            }
 
-            case "pause":
-                if (args.length < 2) {
-                    sender.sendMessage("Usage: /auto-restart pause <time> (example: 10s, 2m, 3h)");
-                    return true;
-                }
-
-                Duration duration = parseDuration(args[1]);
-                if (duration == null || duration.isZero() || duration.isNegative()) {
-                    sender.sendMessage("Invalid duration. Use values like 10s, 2m, 3h.");
-                    return true;
-                }
-
-                plugin.setPausedUntil(System.currentTimeMillis() + duration.toMillis());
-                plugin.setAutoRestartEnabled(true);
-                sender.sendMessage("Auto-restart paused for " + formatDuration(duration) + ".");
-                return true;
-
-            case "reload":
-                plugin.reloadConfigAndWatcher();
-                sender.sendMessage("Auto-restart configuration reloaded and watching restarted.");
-                return true;
-
-            case "status":
-                sender.sendMessage(plugin.getStatusMessage());
-                return true;
-
-            default:
-                sender.sendMessage("Usage: /auto-restart <start|stop|pause|reload|status>");
-                return true;
+            plugin.setPausedUntil(System.currentTimeMillis() + millis);
+            plugin.setAutoRestartEnabled(true);
+            sender.sendMessage("Auto-restart paused for " + formatDurationFromMillis(millis) + ".");
+            return true;
+        } else if (subcommand.equals("reload")) {
+            plugin.reloadConfigAndWatcher();
+            sender.sendMessage("Auto-restart configuration reloaded and watching restarted.");
+            return true;
+        } else if (subcommand.equals("status")) {
+            sender.sendMessage(plugin.getStatusMessage());
+            return true;
+        } else {
+            sender.sendMessage("Usage: /auto-restart <start|stop|pause|reload|status>");
+            return true;
         }
     }
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-
         if (!sender.hasPermission("auto-restart")) {
             return Collections.emptyList();
         }
 
         if (args.length == 1) {
-            List<String> subcommands = List.of(
-                    "start",
-                    "stop",
-                    "pause",
-                    "reload",
-                    "status"
-            );
+            List<String> subcommands = new ArrayList<>();
+            subcommands.add("start");
+            subcommands.add("stop");
+            subcommands.add("pause");
+            subcommands.add("reload");
+            subcommands.add("status");
 
             String input = args[0].toLowerCase();
             List<String> matches = new ArrayList<>();
@@ -112,11 +104,11 @@ public class AutoRestartCommand implements CommandExecutor, TabCompleter {
 
             // User typed only digits -> suggest units
             if (input.matches("\\d+")) {
-                return List.of(
-                        input + "s",
-                        input + "m",
-                        input + "h"
-                );
+                List<String> suggestions = new ArrayList<>();
+                suggestions.add(input + "s");
+                suggestions.add(input + "m");
+                suggestions.add(input + "h");
+                return suggestions;
             }
 
             // User already started typing the unit
@@ -127,12 +119,15 @@ public class AutoRestartCommand implements CommandExecutor, TabCompleter {
 
                 List<String> suggestions = new ArrayList<>();
 
-                if ("s".startsWith(unit))
+                if ("s".startsWith(unit)) {
                     suggestions.add(number + "s");
-                if ("m".startsWith(unit))
+                }
+                if ("m".startsWith(unit)) {
                     suggestions.add(number + "m");
-                if ("h".startsWith(unit))
+                }
+                if ("h".startsWith(unit)) {
                     suggestions.add(number + "h");
+                }
 
                 return suggestions;
             }
@@ -141,25 +136,29 @@ public class AutoRestartCommand implements CommandExecutor, TabCompleter {
         return Collections.emptyList();
     }
 
-    private Duration parseDuration(String token) {
+    private long parseDurationMillis(String token) {
         Matcher matcher = TIME_PATTERN.matcher(token);
         if (!matcher.matches()) {
-            return null;
+            return 0;
         }
 
         long value = Long.parseLong(matcher.group(1));
         char unit = Character.toLowerCase(matcher.group(2).charAt(0));
 
-        return switch (unit) {
-            case 's' -> Duration.ofSeconds(value);
-            case 'm' -> Duration.ofMinutes(value);
-            case 'h' -> Duration.ofHours(value);
-            default -> null;
-        };
+        switch (unit) {
+            case 's':
+                return value * 1000;
+            case 'm':
+                return value * 60 * 1000;
+            case 'h':
+                return value * 60 * 60 * 1000;
+            default:
+                return 0;
+        }
     }
 
-    private String formatDuration(Duration duration) {
-        long seconds = duration.getSeconds();
+    private String formatDurationFromMillis(long millis) {
+        long seconds = millis / 1000;
 
         if (seconds % 3600 == 0) {
             return (seconds / 3600) + "h";

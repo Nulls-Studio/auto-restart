@@ -5,8 +5,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.command.PluginCommand;
 
-import net.kyori.adventure.text.Component;
-
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Map;
@@ -42,9 +40,24 @@ public class AutoRestartPlugin extends JavaPlugin {
 
         config = new Config(configFilePath, serverRoot);
         watcher = new WatchFiles(this,
-                this::onWatchedPathChanged,
-                () -> autoRestartEnabled,
-                () -> pausedUntil);
+                new java.util.function.Consumer<Path>() {
+                    @Override
+                    public void accept(Path path) {
+                        onWatchedPathChanged(path);
+                    }
+                },
+                new java.util.function.BooleanSupplier() {
+                    @Override
+                    public boolean getAsBoolean() {
+                        return autoRestartEnabled;
+                    }
+                },
+                new java.util.function.LongSupplier() {
+                    @Override
+                    public long getAsLong() {
+                        return pausedUntil;
+                    }
+                });
         AutoRestartCommand command = new AutoRestartCommand(this);
 
         PluginCommand pluginCommand = getCommand("auto-restart");
@@ -84,7 +97,7 @@ public class AutoRestartPlugin extends JavaPlugin {
         StringBuilder status = new StringBuilder();
         status.append(autoRestartEnabled ? "enabled" : "disabled");
         if (pausedUntil > System.currentTimeMillis()) {
-            status.append(" (paused until ").append(java.time.Instant.ofEpochMilli(pausedUntil)).append(")");
+            status.append(" (paused until ").append(new java.util.Date(pausedUntil)).append(")");
         }
         status.append(". Configured watchers: ").append(config.getWatchRules().size());
         return status.toString();
@@ -95,7 +108,12 @@ public class AutoRestartPlugin extends JavaPlugin {
             return;
         }
 
-        Bukkit.getScheduler().runTask(this, () -> performRestart(changedPath));
+        Bukkit.getScheduler().runTask(this, new Runnable() {
+            @Override
+            public void run() {
+                performRestart(changedPath);
+            }
+        });
     }
 
     private void performRestart(Path changedPath) {
@@ -103,14 +121,11 @@ public class AutoRestartPlugin extends JavaPlugin {
         String kickMessageForPerm = "Server is restarting because a change was applied to " + relativeChanged + ".";
         String defaultKickMessage = "Server is restarting.";
 
-        Component kickMessageForPermComponent = Component.text(kickMessageForPerm);
-        Component defaultKickMessageComponent = Component.text(defaultKickMessage);
-
         for (Player player : Bukkit.getOnlinePlayers()) {
             if (player.hasPermission("auto-restart")) {
-                player.kick(kickMessageForPermComponent);
+                player.kickPlayer(kickMessageForPerm);
             } else {
-                player.kick(defaultKickMessageComponent);
+                player.kickPlayer(defaultKickMessage);
             }
         }
 

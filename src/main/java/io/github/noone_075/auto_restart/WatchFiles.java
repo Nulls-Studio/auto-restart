@@ -82,7 +82,12 @@ public class WatchFiles {
             }
         }
 
-        watchThread = new Thread(this::processWatchEvents, "AutoRestart-Watcher");
+        watchThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                processWatchEvents();
+            }
+        }, "AutoRestart-Watcher");
         watchThread.setDaemon(true);
         watchThread.start();
     }
@@ -116,7 +121,7 @@ public class WatchFiles {
     }
 
     private void registerRecursive(Path root) throws IOException {
-        Files.walkFileTree(root, new SimpleFileVisitor<>() {
+        Files.walkFileTree(root, new SimpleFileVisitor<Path>() {
             @Override
             public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
                 registerWatch(dir);
@@ -192,23 +197,19 @@ public class WatchFiles {
         for (Map.Entry<Path, WatchType> entry : watchConfig.entrySet()) {
             Path configuredPath = entry.getKey();
             WatchType type = entry.getValue();
-            switch (type) {
-                case FILE:
-                    if (changedPath.equals(configuredPath)) {
-                        return true;
-                    }
-                    break;
-                case DIR:
-                    Path parent = changedPath.getParent();
-                    if (parent != null && parent.equals(configuredPath)) {
-                        return true;
-                    }
-                    break;
-                case RDIR:
-                    if (changedPath.startsWith(configuredPath)) {
-                        return true;
-                    }
-                    break;
+            if (type == WatchType.FILE) {
+                if (changedPath.equals(configuredPath)) {
+                    return true;
+                }
+            } else if (type == WatchType.DIR) {
+                Path parent = changedPath.getParent();
+                if (parent != null && parent.equals(configuredPath)) {
+                    return true;
+                }
+            } else if (type == WatchType.RDIR) {
+                if (changedPath.startsWith(configuredPath)) {
+                    return true;
+                }
             }
         }
         return false;
