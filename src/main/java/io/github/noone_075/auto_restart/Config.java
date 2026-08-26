@@ -76,14 +76,14 @@ public class Config {
             return;
         }
 
-        Files.writeString(file,
-                "# Example watch rules:\n" +
+        String content = "# Example watch rules:\n" +
                 "# file /server.properties\n" +
                 "# dir /plugins/\n" +
                 "# rdir /config/\n" +
                 "file /server.properties\n" +
                 "dir /plugins/\n" +
-                "rdir /config/\n",
-                StandardCharsets.UTF_8);
+                "rdir /config/\n";
+
+        Files.write(file, content.getBytes(StandardCharsets.UTF_8));
     }
 }
