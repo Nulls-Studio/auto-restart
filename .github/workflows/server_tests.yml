@@ -14,6 +14,10 @@ on:
 
   workflow_dispatch:
 
+concurrency:
+  group: plugin-server-tests
+  cancel-in-progress: true
+
 jobs:
   test:
     name: Minecraft ${{ matrix.minecraft }} / Java ${{ matrix.java }}
@@ -33,7 +37,7 @@ jobs:
             java: "8"
 
           - minecraft: "1.20.6"
-            java: "17"
+            java: "21"
 
           - minecraft: "1.21.11"
             java: "25"
