@@ -86,7 +86,7 @@ jobs:
 
     - name: Check AutoRestart
       run: |
-        if grep -q "Enabling AutoRestart" server/server.log; then
+        if grep -q "[AutoRestart] AutoRestart is enabled and watching configured files." server/server.log; then
           echo "AutoRestart loaded successfully!"
           exit 0
         fi
