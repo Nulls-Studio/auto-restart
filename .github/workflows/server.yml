@@ -26,8 +26,32 @@ jobs:
       run: |
         mkdir -p server/plugins
 
-        wget -O server/paper.jar \
-          "https://api.papermc.io/v2/projects/paper/versions/1.21.11/builds/latest/downloads/paper-1.21.11-latest.jar"
+        curl -L \
+          -H "User-Agent: AutoRestart-GitHub-Actions/1.0 (https://github.com/${{ github.repository }})" \
+          "https://fill.papermc.io/v3/projects/paper/versions/1.21.11/builds" \
+          -o builds.json
+
+        PAPER_URL=$(jq -r '
+          first(
+            .[]
+            | select(.channel == "STABLE")
+            | .downloads["server:default"].url
+          )
+        ' builds.json)
+
+        if [ "$PAPER_URL" = "null" ] || [ -z "$PAPER_URL" ]; then
+          echo "Could not find a stable Paper build for 1.21.11."
+          cat builds.json
+          exit 1
+        fi
+
+        echo "Downloading Paper from:"
+        echo "$PAPER_URL"
+
+        curl -L \
+          -H "User-Agent: AutoRestart-GitHub-Actions/1.0 (https://github.com/${{ github.repository }})" \
+          "$PAPER_URL" \
+          -o server/paper.jar
 
         echo "eula=true" > server/eula.txt
 
