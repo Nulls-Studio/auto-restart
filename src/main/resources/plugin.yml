@@ -2,7 +2,6 @@ name: ${project.name}
 prefix: ${project.name}
 main: io.github.noone_075.auto_restart.AutoRestartPlugin
 version: ${project.version}
-api-version: "1.12"
 
 description: Automatically restarts the server when one of the configured files is modified.
 author: noone-075
