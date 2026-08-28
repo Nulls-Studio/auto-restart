@@ -37,7 +37,7 @@ jobs:
       run: mvn -B package --file pom.xml
 
     - name: Test AutoRestart
-      uses: noone-075/plugin-server-test@v1.0
+      uses: noone-075/plugin-server-test@main
       with:
         server: paper
         version: '1.12.2'
