@@ -59,7 +59,7 @@ jobs:
         run: mvn -B package --file pom.xml
 
       - name: Test plugin
-        uses: noone-075/plugin-server-test@v1.0.1
+        uses: noone-075/plugin-server-test@v1.0.2
         with:
           server: paper
           version: ${{ matrix.minecraft }}
