@@ -14,7 +14,6 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>8</java.version>
-        <maven.compiler.release>8</maven.compiler.release>
         <bukkit.version>1.12.2-R0.1-SNAPSHOT</bukkit.version>
     </properties>
 
