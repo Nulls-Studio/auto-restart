@@ -1,6 +1,11 @@
 name: Testing the plugin
 
 on:
+  workflow_run:
+    workflows: [ "Java CI with Maven" ]
+    types:
+      - completed
+
   workflow_dispatch:
 
 jobs:
