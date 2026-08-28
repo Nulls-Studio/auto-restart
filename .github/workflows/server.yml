@@ -102,3 +102,6 @@ jobs:
         if [ -f server/server.pid ]; then
           kill "$(cat server/server.pid)" || true
         fi
+    - name: Show logs
+      run: |
+        cat server/server.log
