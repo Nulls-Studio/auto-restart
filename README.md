@@ -4,7 +4,7 @@ A lightweight Minecraft plugin that automatically restarts your server whenever 
 
 AutoRestart monitors the files and directories you specify and automatically restarts the server when changes are detected. This makes it ideal for automated deployments, configuration updates, or development environments.
 
-![Build Status](https://github.com/noone-075/auto-restart/actions/workflows/maven.yml/badge.svg)
+[![Build Status](https://github.com/noone-075/auto-restart/actions/workflows/build.yml/badge.svg)](https://github.com/noone-075/auto-restart/actions/workflows/build.yml)
 
 ---
 
@@ -121,6 +121,10 @@ to reload the watch list without restarting the server.
 ## Compatibility
 
 Compatible with Paper, Spigot, and other Bukkit-based server software.
+
+The plugin is also compatible on versions 1.12.2 +
+We test the plugin loading on versions: 1.12.2 (Java 8), 1.16.5 (Java 8), 1.20.6 (Java 21), 1.21.11 (Java 25)
+Status: [![Plugin Server Tests](https://github.com/noone-075/auto-restart/actions/workflows/server_tests.yml/badge.svg)](https://github.com/noone-075/auto-restart/actions/workflows/server_tests.yml)
 
 ---
 
