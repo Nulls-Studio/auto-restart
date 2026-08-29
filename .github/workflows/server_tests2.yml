@@ -1,0 +1,63 @@
+name: Plugin Server Tests
+
+on:
+  workflow_run:
+    workflows: ["Maven build"]
+    types:
+      - completed
+
+concurrency:
+  group: plugin-server-tests
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Minecraft ${{ matrix.minecraft }} / Java ${{ matrix.java }}
+
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+
+      matrix:
+        include:
+          - minecraft: "1.12.2"
+            java: "8"
+
+          - minecraft: "1.16.5"
+            java: "8"
+
+          - minecraft: "1.20.6"
+            java: "21"
+
+          - minecraft: "1.21.11"
+            java: "25"
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+
+      - name: Download plugin
+        uses: actions/download-artifact@v4
+        with:
+          name: auto-restart.jar
+          path: target
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Test plugin
+        uses: noone-075/plugin-server-test@main
+        with:
+          software: paper
+          version: ${{ matrix.minecraft }}
+          java: ${{ matrix.java }}
+
+          plugins: |
+            target/*.jar
+
+          tocheck: |
+            AutoRestart is enabled
