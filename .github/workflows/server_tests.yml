@@ -37,12 +37,12 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           ref: ${{ github.event.workflow_run.head_sha || github.sha }}
 
       - name: Download plugin
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: auto-restart.jar
           path: target
@@ -50,7 +50,7 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Test plugin
-        uses: noone-075/plugin-server-test@main
+        uses: Nulls-Studio/plugin-server-test@v1
         with:
           software: paper
           version: ${{ matrix.minecraft }}
