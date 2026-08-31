@@ -1,10 +1,12 @@
-AutoRestart Free Distribution License (AFDL) v1.0
+Nulls-studio Free Distribution License (NFDL) v1.0
 
-Copyright (c) 2026 noone-075
+Copyright (c) 2026 Nulls-studio
+
 
 1. Permission
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and its associated documentation files (the "Software"), to:
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to:
 
 - Use the Software for any purpose.
 - Run the Software on private or public servers.
@@ -15,44 +17,91 @@ Permission is hereby granted, free of charge, to any person obtaining a copy of 
 
 Subject to the conditions described below.
 
+
 2. Free Distribution Requirement
 
-The Software, whether original or modified, must always be made available free of charge.
+The Software, whether original or modified, must always be made available
+free of charge.
 
 No person or organization may:
 
 - Sell the Software.
 - Sell modified versions of the Software.
 - Charge a fee for downloading, obtaining, or accessing the Software.
-- Require a subscription, membership, donation, purchase, or any other payment as a condition for obtaining the Software.
-- Include the Software in any paid software bundle, marketplace listing, or commercial package where payment is required to obtain the Software.
+- Require a subscription, membership, donation, purchase, or any other
+  payment as a condition for obtaining the Software.
+- Include the Software in a paid software bundle, marketplace listing,
+  or commercial package where payment is required to obtain the Software.
+
 
 3. Permitted Server Usage
 
-Running the Software on a server that generates revenue through donations, memberships, cosmetic purchases, ranks, advertisements, sponsorships, or similar monetization methods is permitted, provided that users are not required to pay specifically to obtain or access the Software itself.
+Running the Software on a server or service that generates revenue through
+donations, memberships, cosmetic purchases, ranks, advertisements,
+sponsorships, or similar monetization methods is permitted, provided that
+users are not required to pay specifically to obtain or access the Software
+itself.
 
-The Software may be used as part of commercial server operations so long as the Software is not being sold or distributed in violation of Section 2.
+The Software may be used as part of commercial server or service operations
+so long as the Software itself is not sold or distributed in violation of
+Section 2.
+
 
 4. Attribution
 
 Redistributions of the Software, whether modified or unmodified, must retain:
 
-- This license.
+- A copy of this license.
 - The original copyright notice.
-- A clear acknowledgement that the original Software was created by noone-075.
+- A clear acknowledgement that the original Software was created by
+  Nulls-studio.
 
-Modified versions should clearly indicate that changes have been made.
+Modified versions must clearly indicate that changes have been made.
 
-5. No Trademark Rights
 
-This license does not grant permission to use the author's name, project name, logo, or branding in a manner that suggests endorsement or affiliation without prior written permission.
+5. No Trademark or Branding Rights
 
-6. Warranty Disclaimer
+This license does not grant permission to use the name "Nulls-studio", the
+name of the original project, any associated logos, trademarks, or other
+branding in a manner that suggests endorsement, sponsorship, or affiliation
+without prior written permission.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.
 
-IN NO EVENT SHALL THE AUTHOR OR COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT, OR OTHERWISE, ARISING FROM, OUT OF, OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+6. License Distribution and Modification
 
-7. Acceptance
+This license may be freely copied and distributed in its original,
+unmodified form.
 
-By using, copying, modifying, or distributing the Software, you agree to the terms of this license.
+No person or organization may modify, adapt, translate, abridge, extend,
+rename, or otherwise alter this license or publish a modified version of
+this license under the name "Nulls-studio Free Distribution License",
+"NFDL", or any confusingly similar name.
+
+Modified or derivative versions of this license are not authorized by
+Nulls-studio and must not be represented as the official license.
+
+Projects wishing to use the terms of this license must use the complete,
+unaltered license text.
+
+
+7. Warranty Disclaimer
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.
+
+IN NO EVENT SHALL NULLS-STUDIO OR THE COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM,
+DAMAGES, OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT, OR
+OTHERWISE, ARISING FROM, OUT OF, OR IN CONNECTION WITH THE SOFTWARE OR THE
+USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+8. Acceptance
+
+By using, copying, modifying, or distributing the Software, you agree to the
+terms of this license.
+
+
+Nulls-studio Free Distribution License (NFDL) v1.0
+
+Copyright (c) 2026 Nulls-studio
